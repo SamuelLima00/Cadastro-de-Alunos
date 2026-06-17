@@ -61,3 +61,22 @@ table td{
 .oculto{
     display:none;
 }
+
+.perfil {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#fotoPerfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3498db;
+    cursor: pointer;
+}
+
+#uploadFoto {
+    display: block;
+    margin: 10px auto;
+}

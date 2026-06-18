@@ -11,14 +11,13 @@ function mostrarTela(id){
         id = "login";
 
     }
-
     document
     .querySelectorAll("section")
     .forEach(sec => {
         sec.classList.add("oculto");
 
     });
-
+    
     document
     .getElementById(id)
     .classList.remove("oculto");

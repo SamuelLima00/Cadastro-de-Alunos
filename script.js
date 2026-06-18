@@ -1,4 +1,4 @@
-let alunos =
+llet alunos =
 JSON.parse(localStorage.getItem("alunos")) || [];
 
 function mostrarTela(id){
@@ -37,22 +37,24 @@ function salvarAluno(){
         return;
     }
 
-    alunos.push({
+   alunos.push({
 
-        nome,
+    nome,
+    matricula,
 
-        matricula,
+    idade:
+    document.getElementById("idade").value,
 
-        idade:
-        document.getElementById("idade").value,
+    curso:
+    document.getElementById("curso").value,
 
-        curso:
-        document.getElementById("curso").value,
+    escola:
+    document.getElementById("escola").value,
 
-        escola:
-        document.getElementById("escola").value
+    foto:
+    document.getElementById("fotoPerfil").src
 
-    });
+});
 
     localStorage.setItem(
         "alunos",
@@ -62,6 +64,12 @@ function salvarAluno(){
     listarAlunos();
 
     mostrarTela("lista");
+    document.getElementById("nome").value = "";
+    document.getElementById("matricula").value = "";
+    document.getElementById("idade").value = "";
+    document.getElementById("curso").value = "";
+    document.getElementById("escola").value = "";
+    document.getElementById("fotoPerfil").src = "img/perfil-padrao.png";
 }
 
 function listarAlunos(){
@@ -79,16 +87,24 @@ function listarAlunos(){
 
     alunos
     .filter(a =>
-        a.nome.toLowerCase()
-        .includes(busca)
+    a.nome.toLowerCase().includes(busca) ||
+    a.matricula.toLowerCase().includes(busca)
     )
     .forEach((aluno,index)=>{
 
         tabela.innerHTML += `
         <tr>
+            <td>
+            <img src="${aluno.foto}"
+            width="50"
+            height="50"
+            style="border-radius:50%;">
+            </td>
             <td>${aluno.nome}</td>
             <td>${aluno.matricula}</td>
-            <td>${aluno.curso}</td>
+            <td>${aluno.idade || "N/A"}</td>
+            <td>${aluno.curso || "N/A"}</td>
+            <td>${aluno.escola || "N/A"}</td>
 
             <td>
 
@@ -110,23 +126,36 @@ function listarAlunos(){
 
 function excluirAluno(index){
 
-    alunos.splice(index,1);
+    if(confirm("Deseja excluir este aluno?")){
 
-    localStorage.setItem(
-        "alunos",
-        JSON.stringify(alunos)
-    );
+        alunos.splice(index,1);
 
-    listarAlunos();
+        localStorage.setItem(
+            "alunos",
+            JSON.stringify(alunos)
+        );
+
+        listarAlunos();
+    }
 }
 
 function editarAluno(index){
 
-    const novoNome =
-    prompt(
-        "Novo nome:",
-        alunos[index].nome
-    );
+    const novoNome = prompt(
+    "Novo nome:",
+    alunos[index].nome
+);
+
+if(
+    alunos.some(
+        (a,i) =>
+        i !== index &&
+        a.nome === novoNome
+    )
+){
+    alert("Já existe um aluno com esse nome.");
+    return;
+}
 
     if(novoNome){
 
@@ -159,3 +188,4 @@ uploadFoto.addEventListener("change", function() {
         leitor.readAsDataURL(arquivo);
     }
 });
+

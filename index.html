@@ -1,154 +1,196 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
+
     <meta charset="UTF-8">
     <title>Cadastro de Alunos</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-    <aside class="menu">
-        <h2>Alunos</h2>
+<aside class="menu">
 
-        <button onclick="mostrarTela('home')">Home</button>
+    <h2>Alunos</h2>
 
-        <section id="login" class="oculto">
+    <button onclick="mostrarTela('home')">
+        Home
+    </button>
 
-    <h2>Login</h2>
+    <button onclick="mostrarTela('login')">
+        Login
+    </button>
+
+    <button onclick="mostrarTela('cadastro')">
+        Cadastrar
+    </button>
+
+    <button onclick="mostrarTela('lista')">
+        Alunos
+    </button>
+
+    <button onclick="logout()">
+        Sair
+    </button>
+
+</aside>
+
+<main>
+
+<section id="home">
+
+    <h1>
+        Cadastro de Alunos
+    </h1>
+    <p>
+        Sistema desenvolvido para gerenciamento de alunos.
+    </p>
+
+</section>
+
+<section id="cadastroUsuario" class="oculto">
+
+    <h2>
+        Criar Usuário
+    </h2>
 
     <input
-        type="text"
-        id="usuario"
-        placeholder="Usuário">
+    type="text"
+    id="novoUsuario"
+    placeholder="Novo usuário">
 
     <input
-        type="password"
-        id="senha"
-        placeholder="Senha">
+    type="password"
+    id="novaSenha"
+    placeholder="Nova senha">
+
+    <button onclick="cadastrarUsuario()">
+        Cadastrar
+    </button>
+
+</section>
+
+<section id="login" class="oculto">
+
+    <h2>
+        Login
+    </h2>
+
+    <input
+    type="text"
+    id="usuario"
+    placeholder="Usuário">
+
+    <input
+    type="password"
+    id="senha"
+    placeholder="Senha">
 
     <button onclick="fazerLogin()">
         Entrar
     </button>
 
-        </section>
+    <button onclick="mostrarTela('cadastroUsuario')">
+        Criar Conta
+    </button>
 
-        <button onclick="mostrarTela('login')">
-            Login
-        </button>
+</section>
 
-        <button onclick="mostrarTela('cadastro')">
-            Cadastrar
-        </button>
+<section id="cadastro" class="oculto">
 
-        <button onclick="mostrarTela('lista')">
-            Alunos
-        </button>
+<h2>
+    Novo Aluno
+</h2>
 
-        <button onclick="logout('sair')">
-            Sair
-        </button>
-    </aside>
+<input
+type="text"
+id="nome"
+placeholder="Nome Completo">
 
-    <main>
+<input
+type="text"
+id="matricula"
+placeholder="Matrícula">
 
-        <section id="home">
-            <h1>Cadastro de Alunos</h1>
+<input
+type="number"
+id="idade"
+placeholder="Idade">
 
-            <p>
-                Sistema desenvolvido para gerenciamento
-                de alunos.
-            </p>
-        </section>
+<input
+type="text"
+id="curso"
+placeholder="Curso">
 
-        <section id="cadastro" class="oculto">
+<input
+type="text"
+id="escola"
+placeholder="Escola">
 
-            <h2>Novo Aluno</h2>
+<div class="perfil">
 
-            <input
-                type="text"
-                id="nome"
-                placeholder="Nome Completo">
+<img
+id="fotoPerfil"
+src="img/perfil-padrao.png"
+alt="Foto de Perfil">
 
-            <input
-                type="text"
-                id="matricula"
-                placeholder="Matrícula">
+<input
+type="file"
+id="uploadFoto"
+accept="image/*">
 
-            <input
-                type="number"
-                id="idade"
-                placeholder="Idade">
+</div>
 
-            <input
-                type="text"
-                id="curso"
-                placeholder="Curso">
+<button onclick="salvarAluno()">
+Salvar
+</button>
 
-            <input
-                type="text"
-                id="escola"
-                placeholder="Escola">
-            
-        <div class="perfil">
-            <img id="fotoPerfil" src="img/perfil-padrao.png" alt="Foto de Perfil">
-            <input
-                type="file"
-                id="uploadFoto"
-                accept="image/*">
-        </div>
+</section>
 
-            <button onclick="salvarAluno()">
-                Salvar
-            </button>
+<section id="lista" class="oculto">
 
-        </section>
+<h2>
+    Alunos
+</h2>
 
-        <section id="lista" class="oculto">
+<button onclick="mostrarTela('cadastro')">
++ Novo Aluno
+</button>
 
-            <h2>Alunos</h2>
+<input
+type="text"
+id="busca"
+placeholder="Pesquisar"
+onkeyup="listarAlunos()">
 
-            <input
-                type="text"
-                id="busca"
-                placeholder="Pesquisar"
-                onkeyup="listarAlunos()">
+<table>
 
-            <table>
+<thead>
 
-                <thead>
-                    <tr>
-                        <th>Foto</th>
-                        <th>Nome</th>
-                        <th>Matrícula</th>
-                        <th>Idade</th>
-                        <th>Curso</th>
-                        <th>Escola</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-
-                <tbody id="tabela"></tbody>
-
-            </table>
-
-        </section>
-
-    </main>
+<tr>
+    <th>Foto</th>
+    <th>Nome</th>
+    <th>Matrícula</th>
+    <th>Idade</th>
+    <th>Curso</th>
+    <th>Escola</th>
+    <th>Ações</th>
 </tr>
-                </thead>
 
-                <tbody id="tabela"></tbody>
+</thead>
+<tbody id="tabela">
+</tbody>
 
-            </table>
-
-        </section>
-
-    </main>
-
+</table>
+</section>
+</main>
 <script src="script.js"></script>
-
 </body>
 </html>
